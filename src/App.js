@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import Advice from "./components/Advice"
+import desktopDivider from "./images/pattern-divider-desktop.svg"
+import dice from "./images/icon-dice.svg"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    const [getQuote, setGetQuote] = React.useState(false);
+
+    function handleClick() {
+        setGetQuote(prevState => !prevState)
+    }
+
+    const [quote, setQuote] = React.useState([])
+    let newData = [];
+    let newDataArr = newData.concat(quote);
+
+    React.useEffect(() => {
+        fetch("https://api.adviceslip.com/advice")
+            .then(res => res.json())
+            .then(data => setQuote(data.slip))
+    }, [getQuote])
+
+    const randomQuote = newDataArr.map((item) => {
+        return (
+            <Advice
+                key={item.id}
+                item={item}
+            />
+        )
+    })
+    return (
+        <div className="advice--cont">
+            <h1>ADVICE #{quote.id}</h1>
+            {randomQuote}
+            <img className="divider" alt="" src={desktopDivider} />
+            <div className="dice--cont" onClick={handleClick}>
+                <img alt="" className="dice" src={dice}/>
+            </div>
+        </div>
+    )
 }
-
-export default App;
