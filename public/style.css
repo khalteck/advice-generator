@@ -5,7 +5,7 @@
 }
 body {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     padding: 50px 0;
     background-color: #202632;
     font-family: 'Manrope', sans-serif;
@@ -70,7 +70,7 @@ body {
     }
     body {
         width: 100%;
-        min-height: 100vh;
+        height: 750px;
         padding: 50px 20px;
         background-color: #202632;
         font-family: 'Manrope', sans-serif;
